@@ -1,0 +1,48 @@
+<div id="app" class="bg-gray-300">
+    <div class="container mx-auto">
+      <div class="py-20">
+        <div class="flex items-center px-5 py-2">
+          <span class="w-1/2">
+             <span class="text-xs uppercase text-gray-600 font-bold">Name</span>
+          </span>
+          <span class="w-1/4">
+            <span class="text-xs uppercase text-gray-600 font-bold">Email</span>
+          </span>
+          <span class="w-1/4">
+            <span class="text-xs uppercase text-gray-600 font-bold">Mobile</span>
+          </span>
+          <span class="w-1/4">
+           <span class="text-xs uppercase text-gray-600 font-bold">Role</span>
+          </span>
+          <span class="w-1/4">
+           <span class="text-xs uppercase text-gray-600 font-bold"></span>
+          </span>
+        </div>
+  
+        <div *ngFor="let item of userList" class="hover:bg-gray-200 cursor-pointer bg-white shadow flex p-5 items-center mb-5 rounded-lg">
+     
+          <div class="w-1/2">
+            <div class="flex items-center">
+             
+              <div class="ml-4">
+                <span class="capitalize block text-gray-800">{{item.fullName}}</span>
+              </div>
+  
+            </div>
+          </div>
+          <div class="w-1/4">
+            <span class="capitalize text-gray-600 text-sm">{{item.email}}</span>
+          </div>
+          <div class="w-1/4">
+            <span class="capitalize text-gray-600 text-sm">{{item.mobileNo}}</span>
+          </div>
+          <div class="w-1/4">
+            <span class="text-gray-600 text-sm">{{item.role}}</span>
+          </div>
+          <div class="w-1/4">
+            <span class="text-gray-600 text-sm"></span>
+          </div>
+        </div>
+  
+      </div>
+    </div>

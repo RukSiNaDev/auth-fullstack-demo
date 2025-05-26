@@ -1,0 +1,85 @@
+<div class="flex justify-center items-center h-screen bg-gray-50">
+    <div>
+        <div class="relative w-96 bg-white ring-8 ring-gray-100 border border-gray-200 rounded-xl overflow-hidden">
+
+            <!-- Tabs -->
+            <div class="flex border-b">
+                <button id="tab-login" (click)="gotoLogin()"
+                    class="flex-1 py-5 text-center font-medium border-b border-blue-500 text-blue-500">
+                    Login
+                </button>
+                <button id="tab-register" (click)="gotoRegister()"
+                    class="flex-1 py-5 text-center font-medium border-b hover:border-gray-300">
+                    Register
+                </button>
+            </div>
+
+            <!-- Expanding Forms -->
+            <div id="form-wrapper" class="transition-all duration-500 ease-in-out">
+                <!-- Login Form -->
+                <form (ngSubmit)="onLogin()">
+                    <div *ngIf="showLogin" class="space-y-4 p-10">
+                        <div>
+                            <label for="email" class="block text-xs font-medium text-gray-700 uppercase">Email</label>
+                            <input type="email" id="login-email" name="email"  [(ngModel)]="loginObj.email"
+                                class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                placeholder="Email" autocomplete="username">
+                        </div>
+                        <div>
+                            <label for="password"
+                                class="block text-xs font-medium text-gray-700 uppercase">Password</label>
+                            <div class="relative">
+                                <input type="password" id="login-password"  name="password"  [(ngModel)]="loginObj.password"
+                                    class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                    placeholder="Password" autocomplete="current-password" >
+                                <button type="button" id="login-toggle-password"
+                                    class="absolute inset-y-0 right-3 flex items-center text-gray-500">
+                                    <!-- Eye Icon -->
+                                    <!-- Same SVG as before -->
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600">Login</button>
+                    </div>
+                </form>
+
+                <!-- Register Form -->
+                <!-- <form (ngSubmit)="onRegister()"> -->
+                    <div *ngIf="!showLogin" class="space-y-4 p-10">
+                        <div>
+                            <label for="fullName" class="block text-xs uppercase font-medium text-gray-700">Full Name</label>
+                            <input type="text" id="register-fullName" name="fullName" [(ngModel)]="registerObj.fullName"
+                                class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                placeholder="Full Name">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-xs uppercase font-medium text-gray-700">Email</label>
+                            <input type="email" id="register-email" name="email" [(ngModel)]="registerObj.email"
+                                class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                placeholder="Email">
+                        </div>
+                        <div>
+                            <label for="password"
+                                class="block text-xs uppercase font-medium text-gray-700">Password</label>
+                            <input type="password" id="register-password" name="password" [(ngModel)]="registerObj.password"
+                                class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                placeholder="Password">
+                            <div id="password-strength" class="mt-2 text-sm"></div>
+                        </div>
+                        <div>
+                            <label for="mobileNo"
+                                class="block text-xs uppercase font-medium text-gray-700">Mobile Number</label>
+                            <input type="text" name="mobileNo" [(ngModel)]="registerObj.mobileNo"
+                                class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                placeholder="Mobile Number">
+                           
+                        </div>
+                        <button (click)="onRegister()"
+                            class="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600">Register</button>
+                    </div>
+                <!-- </form> -->
+            </div>
+        </div>
+    </div>
+</div>
