@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "userApp": {
+    "AuthApp": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -59,10 +59,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "userApp:build:production"
+              "buildTarget": "AuthApp:build:production"
             },
             "development": {
-              "buildTarget": "userApp:build:development"
+              "buildTarget": "AuthApp:build:development"
             }
           },
           "defaultConfiguration": "development"

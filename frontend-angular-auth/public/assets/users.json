@@ -1,16 +1,18 @@
 [
   {
     "email": "admin@mail.com",
-    "password": "admin1234", 
+    "password": "admin1234",
     "fullName": "Admin User",
     "role": "admin",
+    "moblieNo": "000-0000-0000",
     "createDate": "2024-05-21"
   },
   {
     "email": "user@mail.com",
-    "password": "user1234", 
+    "password": "user1234",
     "fullName": "Nomal User",
     "role": "user",
+    "moblieNo": "000-0000-0000",
     "createDate": "2024-05-21"
   }
 ]

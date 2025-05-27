@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'userApp';
+  title = 'AuthApp';
   parentData = 'Hello from parent';
 
 }
