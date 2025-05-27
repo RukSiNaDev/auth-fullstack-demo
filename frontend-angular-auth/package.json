@@ -4,6 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "build:prod": "ng build --configuration=production --base-href=/fullstack-auth-demo/",
+    "deploy": "npx angular-cli-ghpages --dir=dist/frontend-angular-auth",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
