@@ -1,5 +1,7 @@
 This is a fullstack authentication practice project built with **Angular** (frontend) and **.NET** (backend). It includes basic login, registration, JWT token handling, and role-based access control. It also supports **mock mode** for frontend-only demos without a backend.
 
+[👉 DEMO](https://your-demo-url.com](https://ruksinadev.github.io/auth-fullstack-demo/))
+
 ## 🛠️ Tech Stack
 
 - **Frontend:** Angular 16+  
