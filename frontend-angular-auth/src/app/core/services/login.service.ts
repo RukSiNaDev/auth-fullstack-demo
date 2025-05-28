@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { SharedDataService } from './shared-data.services';
 
 @Injectable({
@@ -20,31 +20,31 @@ export class AuthService {
   login(credentials: any): Observable<any> {
     if (this.sharedDataService._isMock) {
       return new Observable(observer => {
-        this.http.get('assets/users.json').subscribe(users => {
-          console.log("users : ", users);
-          const userArray = users as any[];
-          if (!credentials.email || !credentials.password) {
-            observer.error({ status: 400, error: 'Email and password are required.' });
-            return;
-          }
-          const user = userArray.find((u: any) => u.email === credentials.email && u.password === credentials.password);
-          if (user) {
-            const tokenPayload = {
-              email: user.email,
-              role: user.role,
-              name: user.fullName,
-              exp: Date.now() + 1000 * 60 * 60 * 24 * 30 // 30 วัน
-            };
-            const token = btoa(JSON.stringify(tokenPayload));
-            // this.saveToken(token);
-            observer.next({ token });
-            observer.complete();
-          } else {
-            observer.error({ status: 401, error: 'Wrong credentials' });
-          }
-        }, error => {
-          observer.error(error);
-        });
+        const storedUsers = localStorage.getItem('mockUsers');
+        const userArray = storedUsers ? JSON.parse(storedUsers) : [];
+
+        if (!credentials.email || !credentials.password) {
+          observer.error({ status: 400, error: 'Email and password are required.' });
+          return;
+        }
+
+        const user = userArray.find((u: any) =>
+          u.email === credentials.email && u.password === credentials.password
+        );
+
+        if (user) {
+          const tokenPayload = {
+            email: user.email,
+            role: user.role,
+            name: user.fullName,
+            exp: Date.now() + 1000 * 60 * 60 * 24 * 30
+          };
+          const token = btoa(JSON.stringify(tokenPayload));
+          observer.next({ token });
+          observer.complete();
+        } else {
+          observer.error({ status: 401, error: 'Wrong credentials' });
+        }
       });
 
     } else {
@@ -54,7 +54,24 @@ export class AuthService {
   }
 
   register(registerObj: any) {
-    return this.http.post(`${this.apiUrl + 'createNewUser'}`, registerObj);
+    if (this.sharedDataService._isMock) {
+      const users = JSON.parse(localStorage.getItem('mockUsers') || '[]');
+
+      const exists = users.find((u: any) => u.email === registerObj.email);
+      if (exists) {
+        return throwError(() => new Error('Email already registered'));
+      }
+
+      registerObj.createDate = new Date().toISOString();
+      users.push(registerObj);
+      localStorage.setItem('mockUsers', JSON.stringify(users));
+
+      return of({ message: 'Registered successfully (mock)' });
+    } else {
+      return this.http.post(`${this.apiUrl + 'createNewUser'}`, registerObj);
+    }
+
+
   }
 
   isTokenExpired(): boolean {
