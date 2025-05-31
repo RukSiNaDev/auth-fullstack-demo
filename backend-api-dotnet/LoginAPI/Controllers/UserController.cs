@@ -45,6 +45,21 @@ namespace LoginAPI.Controllers
            
         }
 
+        [HttpPost("resetPassword")]
+        public IActionResult ResetPassword(ResetPasswordDto model)
+        {
+            var user = _context.Users.SingleOrDefault(u => u.email == model.email);
+            if (user == null)
+            {
+                return NotFound("User with this email does not exist.");
+            }
+
+            user.password = BCrypt.Net.BCrypt.HashPassword(model.newPassword);
+            _context.SaveChanges();
+
+            return Ok("Password has been reset successfully.");
+        }
+
         [HttpPost("login")]
         public IActionResult Login(UserLogin obj)
         {

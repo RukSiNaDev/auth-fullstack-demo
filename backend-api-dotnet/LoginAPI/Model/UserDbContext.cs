@@ -35,6 +35,12 @@ namespace LoginAPI.Model
         public string password { get; set; }
     }
 
+    public class ResetPasswordDto
+    {
+        public string email { get; set; }
+        public string newPassword { get; set; }
+    }
+
     public class UserDto
     {
         public string email { get; set; }
