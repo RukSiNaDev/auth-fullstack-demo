@@ -25,7 +25,17 @@ This is a fullstack authentication practice project built with **Angular** (fron
 ## 📁 Folder Structure
 
 ### Angular Frontend (`/src/app`)
-<pre> <code>```plaintext core/ └── services/ └── guards/ pages/ └── login/ └── register/ └── home/ └── user-list/ assets/ └── users.json <-- for mock mode ```</code> </pre>
+<pre> <code>```
+core/
+└── services/
+└── guards/pages/
+└── login/
+└── register/
+└── home/
+└── user-list/
+assets/
+└── users.json <-- for mock mode ```
+</code> </pre>
 
 ### .NET Backend
 
