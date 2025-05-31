@@ -25,16 +25,7 @@ This is a fullstack authentication practice project built with **Angular** (fron
 ## 📁 Folder Structure
 
 ### Angular Frontend (`/src/app`)
-core/
-└── services/
-└── guards/
-pages/
-└── login/
-└── register/
-└── home/
-└── user-list/
-assets/
-└── users.json <-- for mock mode
+<pre> <code>```plaintext core/ └── services/ └── guards/ pages/ └── login/ └── register/ └── home/ └── user-list/ assets/ └── users.json <-- for mock mode ```</code> </pre>
 
 ### .NET Backend
 
@@ -44,18 +35,7 @@ Services/
 Data/
 DTOs/
 
-## 🧪 Mock Mode
-
-You can enable `mock mode` to simulate API responses using local JSON files.
-
-In `login.service.ts`:
-
-```ts
-public readonly isMock = true;
-
-Then provide your mock user data in assets/users.json.
-
-🚀 Getting Started
+## 🚀 Getting Started
 Backend (.NET)
 bash
 Copy
@@ -72,10 +52,20 @@ npm install
 ng serve
 Navigate to: http://localhost:4200
 
+## 🧪 Mock Mode
+
+You can enable `mock mode` to simulate API responses using local JSON files.
+
+In `login.service.ts`:
+
+```ts
+public readonly isMock = true;
+
 📌 Sample Users (Mock Mode)
 json
-Copy
-Edit
+
+Then provide your mock user data in assets/users.json.
+
 [
   {
     "email": "admin@mail.com",
@@ -90,9 +80,8 @@ Edit
     "role": "user"
   }
 ]
-📷 Screenshots
-Login page → Protected Home → Admin-only page
-(Add screenshots if available)
 
-📝 License
+```
+
+## 📝 License
 This project is for learning and personal development purposes.
