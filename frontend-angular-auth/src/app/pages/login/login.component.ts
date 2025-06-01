@@ -16,6 +16,7 @@ import { AuthService } from '../../core/services/login.service';
 export class LoginComponent {
 
   showLogin = true;
+  showPassword = false;
   registerObj: any = {
     email: "",
     password: "",
@@ -29,6 +30,13 @@ export class LoginComponent {
     email: "",
     password: ""
   }
+
+  passwordErrors = {
+    minLength: true,
+    hasLetter: true,
+    hasNumber: true
+  };
+
   router = inject(Router)
   service = inject(AuthService)
 
@@ -52,6 +60,16 @@ export class LoginComponent {
     }
   }
 
+  validatePassword() {
+    const password = this.registerObj.password || '';
+
+    this.passwordErrors = {
+      minLength: password.length < 8,
+      hasLetter: !/[a-zA-Z]/.test(password),
+      hasNumber: !/\d/.test(password)
+    };
+  }
+
   gotoLogin() {
     this.showLogin = true;
   }
@@ -63,7 +81,6 @@ export class LoginComponent {
   onLogin() {
     this.authService.login(this.loginObj).subscribe({
       next: (res: any) => {
-        console.log('Login Response:', res);
 
         const token = res.token;
         this.service.saveToken(token);
@@ -71,9 +88,9 @@ export class LoginComponent {
         alert("Login Success!");
 
         if (roleUser === "admin") {
-          this.router.navigateByUrl("user-list");
+          this.router.navigateByUrl('/user-list');
         } else {
-          this.router.navigateByUrl("welcome");
+          this.router.navigateByUrl('/welcome');
         }
       },
       error: error => {
@@ -101,5 +118,9 @@ export class LoginComponent {
         }
       }
     });
+  }
+
+  gotoResetPassword() {
+    this.router.navigateByUrl('/reset-password');
   }
 }

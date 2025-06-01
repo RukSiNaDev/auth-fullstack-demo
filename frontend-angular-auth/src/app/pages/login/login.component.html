@@ -26,34 +26,35 @@
                 </button>
             </div>
 
-            <!-- Forms -->
             <div id="form-wrapper" class="transition-all duration-500 ease-in-out">
                 <!-- Login Form -->
                 <form (ngSubmit)="onLogin()">
                     <div *ngIf="showLogin" class="space-y-4 p-10">
-                        <!-- Email -->
                         <div>
                             <label for="email" class="block text-xs font-medium text-gray-700 uppercase">Email</label>
                             <input type="email" id="login-email" name="email" [(ngModel)]="loginObj.email"
                                 class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:outline-none"
                                 placeholder="Email" autocomplete="username">
                         </div>
-                        <!-- Password -->
+                    
                         <div>
                             <label for="password"
                                 class="block text-xs font-medium text-gray-700 uppercase">Password</label>
                             <div class="relative">
-                                <input type="password" id="login-password" name="password"
+                                <input [type]="showPassword ? 'text' : 'password'" id="login-password" name="password"
                                     [(ngModel)]="loginObj.password"
-                                    class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:outline-none"
+                                    class="w-full mt-1 p-2 pr-10 border rounded-md focus:ring-2 focus:ring-green-500 focus:outline-none"
                                     placeholder="Password" autocomplete="current-password">
-                                <button type="button" id="login-toggle-password"
-                                    class="absolute inset-y-0 right-3 flex items-center text-gray-500">
-                                    <!-- Eye Icon -->
+
+                                <button type="button" (click)="showPassword = !showPassword"
+                                    class="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-600 focus:outline-none cursor-pointer">
+                                    <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
                                 </button>
                             </div>
+                            <div class="text-sm mt-2 justify-self-end text-blue-600 space-y-1 cursor-pointer hover:underline hover:text-blue-800" (click)="gotoResetPassword()">
+                                <div>Forgot Password?</div>
+                            </div>
                         </div>
-                        <!-- Submit -->
                         <button type="submit"
                             class="w-full bg-green-500 text-white py-3 rounded-md hover:bg-green-600">Login</button>
                     </div>
@@ -77,9 +78,14 @@
                     <div>
                         <label for="password" class="block text-xs uppercase font-medium text-gray-700">Password</label>
                         <input type="password" id="register-password" name="password" [(ngModel)]="registerObj.password"
+                            (ngModelChange)="validatePassword()"
                             class="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-green-500 focus:outline-none"
                             placeholder="Password">
-                        <div id="password-strength" class="mt-2 text-sm"></div>
+                        <div class="text-sm mt-2 text-red-600 space-y-1">
+                            <div *ngIf="passwordErrors.minLength">• At least 8 characters</div>
+                            <div *ngIf="passwordErrors.hasLetter">• Must contain at least one letter (A-Z or a-z)</div>
+                            <div *ngIf="passwordErrors.hasNumber">• Must contain at least one number (0-9)</div>
+                        </div>
                     </div>
                     <div>
                         <label for="mobileNo" class="block text-xs uppercase font-medium text-gray-700">Mobile

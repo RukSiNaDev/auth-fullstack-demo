@@ -30,7 +30,7 @@ core/
 └── services/
 └── guards/pages/
 └── login/
-└── register/
+└── reset-password/
 └── home/
 └── user-list/
 assets/

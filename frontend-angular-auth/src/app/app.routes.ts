@@ -5,6 +5,7 @@ import { UserListComponent } from './pages/user-list/user-list.component';
 // import { LifecycleDemoComponent } from './pages/lifecycle-demo/lifecycle-demo.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 export const routes: Routes = [
     {
@@ -15,6 +16,10 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'reset-password',
+        component: ResetPasswordComponent
     },
     {
         path: '',

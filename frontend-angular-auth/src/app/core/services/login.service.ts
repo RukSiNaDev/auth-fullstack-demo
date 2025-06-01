@@ -70,19 +70,41 @@ export class AuthService {
     } else {
       return this.http.post(`${this.apiUrl + 'createNewUser'}`, registerObj);
     }
+  }
 
+  resetPassword(newPasswordObj: any) {
 
+    if (this.sharedDataService._isMock) {
+      const users = JSON.parse(localStorage.getItem('mockUsers') || '[]');
+      const index = users.findIndex((u: any) => u.email === newPasswordObj.email);
+
+      if (index === -1) {
+        return throwError(() => new Error('User with this email does not exist (mock)'));
+      }
+
+      // เปลี่ยนรหัสผ่านใหม่ (mock) – ในที่นี้อาจจะไม่ hash จริง
+      users[index].password = newPasswordObj.newPassword;
+      localStorage.setItem('mockUsers', JSON.stringify(users));
+
+      return of({ message: 'Password reset successfully (mock)' });
+    } else {
+      return this.http.post(`${this.apiUrl + 'resetPassword'}`, newPasswordObj);
+    }
   }
 
   isTokenExpired(): boolean {
-    const token = localStorage.getItem('token');
+    const token = this.getToken();
     if (!token) return true;
+
     try {
-      const payload = JSON.parse(atob(token));
-      if (!payload.exp) return true;
-      return Date.now() > payload.exp;
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const exp = payload.exp;
+      if (!exp) return true;
+
+      const now = Math.floor(Date.now() / 1000);
+      return exp < now;
     } catch (e) {
-      // If decoding fails, treat token as expired
+      console.error("Token decode error", e);
       return true;
     }
   }
@@ -100,11 +122,8 @@ export class AuthService {
     } else {
       if (!token) return null;
       const decoded = JSON.parse(atob(token.split('.')[1]));
-      console.log("decoded : ", decoded)
-
       return decoded['role'] || null;
     }
-
   }
 
   saveToken(token: string) {

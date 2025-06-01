@@ -21,6 +21,7 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     if (this.sharedDataService._isMock) {
       const usersJson = localStorage.getItem('mockUsers');
       if (usersJson) {
@@ -29,7 +30,8 @@ export class UserListComponent implements OnInit {
     } else {
       this.usersService.getUser().subscribe({
         next: (res: any) => {
-          this.userList = res.data;
+          this.userList = res;
+
         },
         error: error => {
           if (error.status === 400) {
