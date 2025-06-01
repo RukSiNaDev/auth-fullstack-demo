@@ -19,17 +19,23 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const token = this.authService.getToken();
+    const allowedRoles = route.data['roles'] as Array<string>;
+    let userRole = this.authService.getUserRole() ?? '';
+
     if (this.sharedDataService._isMock) {
-      return true;
+      if (token && userRole) {
+        return true;
+      } else {
+        return false;
+      }
+
     } else {
-      const token = this.authService.getToken();
+
       if (!token || this.authService.isTokenExpired()) {
         this.router.navigate(['/login']);
         return false;
       }
-
-      const allowedRoles = route.data['roles'] as Array<string>;
-      let userRole = this.authService.getUserRole() ?? '';
 
       if (allowedRoles && !allowedRoles.includes(userRole)) {
         alert("คุณไม่มีสิทธิ์เข้าหน้านี้");
