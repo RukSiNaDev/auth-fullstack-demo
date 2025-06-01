@@ -54,10 +54,11 @@ namespace LoginAPI.Controllers
                 return NotFound("User with this email does not exist.");
             }
 
+            // Hash new password
             user.password = BCrypt.Net.BCrypt.HashPassword(model.newPassword);
             _context.SaveChanges();
 
-            return Ok("Password has been reset successfully.");
+            return StatusCode(200, new { message = "Password has been reset successfully." });
         }
 
         [HttpPost("login")]
