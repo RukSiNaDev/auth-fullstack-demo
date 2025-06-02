@@ -22,6 +22,7 @@ export class AuthGuard implements CanActivate {
     const token = this.authService.getToken();
     const allowedRoles = route.data['roles'] as Array<string>;
     let userRole = this.authService.getUserRole() ?? '';
+    console.log(token && userRole, 'AuthGuard canActivate');
 
     if (this.sharedDataService._isMock) {
       if (token && userRole) {

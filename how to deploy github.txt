@@ -1,0 +1,9 @@
+✅ 1. Build ใหม่ พร้อม .nojekyll
+
+ng build --configuration=production --base-href=/auth-fullstack-demo/
+echo > dist/frontend-angular-auth/browser/.nojekyll
+
+✅ 2. Deploy ใหม่ไปที่ GitHub Pages
+
+npx angular-cli-ghpages --dir=dist/frontend-angular-auth/browser
+✅ คำสั่งนี้จะ deploy ไปที่ branch gh-pages และเขียนทับทุกอย่างในนั้น

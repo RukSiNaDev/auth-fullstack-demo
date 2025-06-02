@@ -28,7 +28,8 @@ This is a fullstack authentication practice project built with **Angular** (fron
 <pre> <code>```
 core/
 └── services/
-└── guards/pages/
+└── guards/
+pages/
 └── login/
 └── reset-password/
 └── home/
