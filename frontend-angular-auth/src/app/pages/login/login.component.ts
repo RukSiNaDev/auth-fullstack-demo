@@ -38,7 +38,6 @@ export class LoginComponent {
   };
 
   router = inject(Router)
-  service = inject(AuthService)
 
   constructor(
     private authService: AuthService,
@@ -47,11 +46,11 @@ export class LoginComponent {
   }
 
   ngOnInit(): void {
-    const token = this.service.getToken();
-    const isExpired = this.service.isTokenExpired();
+    const token = this.authService.getToken();
+    const isExpired = this.authService.isTokenExpired();
 
     if (token && !isExpired) {
-      const role = this.service.getUserRole();
+      const role = this.authService.getUserRole();
       if (role === 'admin') {
         this.router.navigateByUrl('/user-list');
       } else {
@@ -81,10 +80,10 @@ export class LoginComponent {
   onLogin() {
     this.authService.login(this.loginObj).subscribe({
       next: (res: any) => {
-
+        
         const token = res.token;
-        this.service.saveToken(token);
-        let roleUser = this.service.getUserRole();
+        this.authService.saveToken(token);
+        let roleUser = this.authService.getUserRole();
         alert("Login Success!");
 
         if (roleUser === "admin") {
